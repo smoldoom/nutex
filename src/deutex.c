@@ -745,6 +745,8 @@ static comdef_t Com[] = {
      "same as \1-build\3"},
     {CM4, 0, "debug", COMdebug, "[<file>]", "debug colour conversion"},
     {CM4, 0, "extract", COMxtra, "[<in.wad> [<out.txt>]]",
+     "extract some/all entries from a wad"},
+    {CM4, 0, "extract", COMxtra, "[<in.wad> [<out.txt>]]",
      "same as \1-xtract\3"},
     {CM4, 1, "get", COMget, "<entry> [<in.wad>]",
      "get a wad entry from main wad or \2in.wad\3"},
@@ -765,8 +767,6 @@ static comdef_t Com[] = {
      "list textures used in all levels"},
     {CM4, 0, "wadir", COMwadir, "[<in.wad>]",
      "list and identify entries in a wad"},
-    {CM4, 0, "xtract", COMxtra, "[<in.wad> [<out.txt>]]",
-     "extract some/all entries from a wad"},
 
     {SEC, 0, NULL, NULL, NULL, "General options"},
     {OP2, 0, "overwrite", COMstroy, NULL, "overwrite all"},
@@ -775,16 +775,6 @@ static comdef_t Com[] = {
 
     {SEC, 0, NULL, NULL, NULL, "Iwad"},
     {OP2, 1, "doom", COMdoom, "<dir>", "path to Doom iwad"},
-    {OP2, 1, "doom2", COMdoom, "<dir>", "path to Doom II iwad"},
-    {OP2, 1, "doom02", COMdoom02, "<dir>", "path to Doom alpha 0.2 iwad"},
-    {OP2, 1, "doom04", COMdoom04, "<dir>", "path to Doom alpha 0.4 iwad"},
-    {OP2, 1, "doom05", COMdoom05, "<dir>", "path to Doom alpha 0.5 iwad"},
-    {OP2, 1, "doompr", COMdoompr, "<dir>",
-     "path to Doom PR pre-beta iwad"},
-    {OP2, 1, "heretic", COMdoom, "<dir>", "path to Heretic iwad"},
-    {OP2, 1, "hexen", COMdoom, "<dir>", "path to Hexen iwad"},
-    {OP2, 1, "strife", COMstrife, "<dir>", "path to Strife iwad"},
-    {OP2, 1, "strife10", COMdoom, "<dir>", "path to Strife 1.0 iwad"},
 
     {SEC, 0, NULL, NULL, NULL, "Wad options"},
     {OP2, 0, "be", COMbe, NULL,
@@ -805,7 +795,6 @@ static comdef_t Com[] = {
     {OP2, 0, "iwad", COMiwad, NULL, "compose iwad, not pwad"},
     {OP2, 0, "le", COMle, NULL,
      "assume all wads are little endian (default)"},
-    {OP2, 0, "obe", COMobe, NULL, "create big endian wads (default LE)"},
     {OP2, 0, "ole", COMole, NULL, "create little endian wads (default)"},
     {OP2, 1, "otf", COMtf, "<code>",
      "output texture format (\1nameless\3, \1none\3, *\1normal\3, \1strife11\3)"},
@@ -835,8 +824,6 @@ static comdef_t Com[] = {
     {OP2, 0, "textures", COMtextur, NULL, "select textures"},
 
     {SEC, 0, NULL, NULL, NULL, "Graphics"},
-    {OP2, 0, "bmp", COMbmp, NULL, "save pictures as BMP (\1.bmp\3)"},
-    {OP2, 0, "gif", COMgif, NULL, "save pictures as GIF (\1.gif\3)"},
 #ifdef HAVE_LIBPNG
     {OP2, 0, "png", COMpng, NULL, "save pictures as PNG (\1.png\3)"},
 #endif
@@ -851,13 +838,6 @@ static comdef_t Com[] = {
 
     {SEC, 0, NULL, NULL, NULL, "Reporting"},
     {OP2, 1, "di", COMdi, "<name>", "debug identification of entry"},
-    {OP2, 0, "v0", COMverbose, NULL, "set verbosity level to 0"},
-    {OP2, 0, "v1", COMverbose, NULL, "set verbosity level to 1"},
-    {OP2, 0, "v2", COMverbose, NULL, "set verbosity level to 2 (default)"},
-    {OP2, 0, "v3", COMverbose, NULL, "set verbosity level to 3"},
-    {OP2, 0, "v4", COMverbose, NULL, "set verbosity level to 4"},
-    {OP2, 0, "v5", COMverbose, NULL, "set verbosity level to 5"},
-
     {END, 0, "", COMhelp, NULL, ""}
 };
 
@@ -962,22 +942,7 @@ int main(int argc, char *argv_non_const[])
         if (d->type & 0x20) {
             static const char *wads[] = {
                 "doom",         /* Doom, Ultimate Doom, Doom alpha */
-                "doom2",        /* Doom II */
-                "plutonia",     /* Final Doom */
-                "tnt",          /* Final Doom */
-                "freedoom1",    /* Freedoom: Phase 1 */
-                "freedoom2",    /* Freedoom: Phase 2 */
-                "freedm",       /* FreeDM */
-                "blasphem",     /* Blasphemer */
-                "heretic",      /* Heretic */
-                "hexen",        /* Hexen */
-                "strife1",      /* Strife */
-                "doompres",     /* Doom Press Release pre-beta */
                 "doom1",        /* Doom shareware */
-                "heretic1",     /* Heretic demo */
-                "strife0",      /* Strife demo */
-                "hacx",         /* Hacx IWAD */
-                "chex3",        /* Chex Quest 3 IWAD */
                 NULL
             };
             int gotit = 0;
